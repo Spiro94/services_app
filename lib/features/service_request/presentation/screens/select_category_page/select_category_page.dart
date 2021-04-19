@@ -25,7 +25,7 @@ class _SelectCategoryPageState extends State<SelectCategoryPage> {
     return Container(
       child: Scaffold(
         body: Container(
-          color: Color.fromARGB(255, 225, 204, 199),
+          // color: Color.fromARGB(255, 225, 204, 199),
           child: Center(
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
