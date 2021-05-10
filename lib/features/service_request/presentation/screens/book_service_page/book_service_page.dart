@@ -18,10 +18,13 @@ class ServiceBookPage extends StatelessWidget {
           Hero(
             tag: 'profile_pic0',
             child: CircleAvatar(
+              backgroundImage: AssetImage('assets/images/ProfilePic.jpg'),
               backgroundColor: Colors.white,
               radius: 100,
-              child: Image(image: AssetImage('assets/images/ProfilePic.jpg')),
             ),
+          ),
+          SizedBox(
+            height: 20,
           ),
           Text(
             'NOMBRE PERSONA',
@@ -42,7 +45,7 @@ class ServiceBookPage extends StatelessWidget {
             height: 10,
           ),
           contactBuilder(),
-          galleryBuilder(),
+          galleryBuilder(context),
           ListTile(
             title: Text('Litado de precios'),
             trailing: Icon(Icons.arrow_forward_ios_sharp),
@@ -91,30 +94,42 @@ class ServiceBookPage extends StatelessWidget {
     }
   }
 
-  Widget galleryBuilder() {
+  Widget galleryBuilder(BuildContext context) {
     return Container(
       margin: EdgeInsets.symmetric(vertical: 20.0),
-      height: 100.0,
+      height: 120.0,
       child: ListView(
         scrollDirection: Axis.horizontal,
         children: <Widget>[
-          Container(
-            width: 160.0,
-            color: Colors.red,
-          ),
-          Container(
-            width: 160.0,
-            color: Colors.orange,
-          ),
-          Container(
-            width: 160.0,
-            color: Colors.pink,
-          ),
-          Container(
-            width: 160.0,
-            color: Colors.yellow,
-          ),
+          buildImage(context, 'assets/images/nail1.jpg'),
+          buildImage(context, 'assets/images/nail2.jpg'),
+          buildImage(context, 'assets/images/nail3.jpg'),
+          buildImage(context, 'assets/images/nail4.jpg'),
         ],
+      ),
+    );
+  }
+
+  GestureDetector buildImage(BuildContext context, String assetName) {
+    return GestureDetector(
+      behavior: HitTestBehavior.translucent,
+      onTap: () async {
+        print('TAP IMAGE');
+        await showDialog(
+            context: context,
+            builder: (_) => Dialog(
+                  child: Container(
+                    width: 200,
+                    height: 200,
+                    decoration: BoxDecoration(
+                      image: DecorationImage(
+                          image: AssetImage(assetName), fit: BoxFit.cover),
+                    ),
+                  ),
+                ));
+      },
+      child: Image(
+        image: AssetImage(assetName),
       ),
     );
   }
