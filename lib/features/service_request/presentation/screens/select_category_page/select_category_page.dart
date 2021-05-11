@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:services_app/core/widgets/main_text.dart';
 
 import '../select_person_page/select_person_page.dart';
-import 'package:google_fonts/google_fonts.dart';
 
 class SelectCategoryPage extends StatefulWidget {
   static String routeName = '/select_category_page';
@@ -12,7 +12,11 @@ class SelectCategoryPage extends StatefulWidget {
 }
 
 class _SelectCategoryPageState extends State<SelectCategoryPage> {
-  List<String> _services = ['Manicure', 'Pedicure', 'Peinados'];
+  List<String> _services = [
+    'Uñas',
+    'Peinados',
+    'Maquillaje',
+  ];
 
   List<String> _selectedServices = [];
 
@@ -28,172 +32,222 @@ class _SelectCategoryPageState extends State<SelectCategoryPage> {
   Widget build(BuildContext context) {
     size = MediaQuery.of(context).size;
     return Scaffold(
-      body: SingleChildScrollView(
-        child: Column(
+      body: SafeArea(
+        child: ListView(
+          padding: EdgeInsets.only(right: 20, left: 20, top: 15),
           children: [
-            Stack(
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                Container(
-                  height: size.height * .70,
+                Column(
+                  children: [
+                    Row(
+                      children: [
+                        MainText(
+                          'Buenos días, ',
+                          color: Color.fromARGB(255, 115, 63, 40),
+                        ),
+                        MainText(
+                          'Alana',
+                          color: Color.fromARGB(255, 115, 63, 40),
+                          fontWeight: FontWeight.w700,
+                        )
+                      ],
+                    ),
+                  ],
                 ),
-                Image(
-                  height: size.height * .699,
-                  fit: BoxFit.cover,
-                  image: AssetImage('assets/images/main_image1.jpg'),
-                ),
-                Positioned(
-                  bottom: size.height * 0.12,
-                  right: size.width * 0.05,
-                  child: Text(
-                    'Descubre\nTu\nBelleza',
-                    textAlign: TextAlign.center,
-                    style: GoogleFonts.lora(fontSize: 45, color: Colors.white),
-                  ),
-                ),
-                Positioned.fill(
-                  child: Align(
-                    alignment: Alignment.bottomCenter,
-                    child: Container(
-                      height: size.height * 0.2,
+                CircleAvatar(
+                  radius: 20,
+                  backgroundImage: AssetImage('assets/images/pic1.jpg'),
+                )
+              ],
+            ),
+            SizedBox(
+              height: 40,
+            ),
+            Container(
+              height: size.height / 5,
+              child: NotificationListener<OverscrollIndicatorNotification>(
+                onNotification: (overscroll) {
+                  overscroll.disallowGlow();
+                  return false;
+                },
+                child: ListView(
+                  scrollDirection: Axis.horizontal,
+                  children: [
+                    Container(
                       decoration: BoxDecoration(
-                        gradient: LinearGradient(
-                          begin: FractionalOffset.topCenter,
-                          end: FractionalOffset.bottomCenter,
-                          colors: [
-                            Colors.white.withOpacity(0.0),
-                            Colors.white,
+                        borderRadius: BorderRadius.circular(15),
+                        color: Color.fromARGB(255, 115, 63, 40),
+                      ),
+                      margin: const EdgeInsets.only(right: 7),
+                      width: size.width * 0.8,
+                    ),
+                    Container(
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(15),
+                        color: Color.fromARGB(255, 142, 87, 57),
+                      ),
+                      margin: const EdgeInsets.only(right: 7),
+                      width: size.width * 0.8,
+                    ),
+                  ],
+                ),
+              ),
+            ),
+            SizedBox(
+              height: 20,
+            ),
+            MainText(
+              'Servicios',
+              color: Color.fromARGB(255, 115, 63, 40),
+            ),
+            SizedBox(
+              height: 15,
+            ),
+            Wrap(
+              runSpacing: 10,
+              spacing: 30,
+              crossAxisAlignment: WrapCrossAlignment.center,
+              children: _services
+                  .map(
+                    (service) => GestureDetector(
+                      behavior: HitTestBehavior.translucent,
+                      onTap: () {
+                        Navigator.pushNamed(
+                            context, SelectPersonPage.routeName);
+                      },
+                      child: Container(
+                        width: size.width / 4.5,
+                        child: Column(
+                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                          children: [
+                            CircleAvatar(
+                              backgroundColor:
+                                  Color.fromARGB(255, 226, 186, 159),
+                              radius: 25,
+                              child: Icon(
+                                Icons.accessibility_new_outlined,
+                                size: 30,
+                                color: Color.fromARGB(255, 124, 86, 64),
+                              ),
+                            ),
+                            MainText(
+                              service,
+                              size: 13,
+                              color: Color.fromARGB(255, 115, 63, 40),
+                            ),
                           ],
-                          stops: [0.0, 1.0],
                         ),
                       ),
                     ),
-                  ),
-                ),
-              ],
+                  )
+                  .toList(),
+            ),
+            SizedBox(
+              height: 30,
+            ),
+            MainText(
+              'Top especialistas',
+              color: Color.fromARGB(255, 115, 63, 40),
+            ),
+            SizedBox(
+              height: 15,
             ),
             Container(
-              padding: const EdgeInsets.only(
-                top: 25,
-                left: 20,
-              ),
-              decoration: BoxDecoration(
-                gradient: LinearGradient(
-                  begin: FractionalOffset.topCenter,
-                  end: FractionalOffset.bottomCenter,
-                  colors: [
-                    Colors.white,
-                    Color.fromARGB(255, 228, 195, 177),
-                  ],
-                  stops: [0.0, 1.0],
-                ),
-              ),
-              height: size.height * .30,
-              width: double.infinity,
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.stretch,
-                children: [
-                  Text(
-                    'Servicios',
-                    style: GoogleFonts.poppins(fontSize: 20),
-                  ),
-                  Container(
-                    margin: const EdgeInsets.symmetric(vertical: 20),
-                    height: size.height * .30 / 2.2,
-                    child: ListView(
-                      scrollDirection: Axis.horizontal,
+              height: size.height / 4,
+              child: NotificationListener<OverscrollIndicatorNotification>(
+                onNotification: (overscroll) {
+                  overscroll.disallowGlow();
+                  return false;
+                },
+                child: ListView.builder(
+                  itemCount: 10,
+                  itemBuilder: (context, i) => Container(
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(15),
+                    ),
+                    margin: const EdgeInsets.only(
+                      right: 20,
+                    ),
+                    width: size.width * 0.35,
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.stretch,
                       children: [
-                        GestureDetector(
-                          behavior: HitTestBehavior.translucent,
-                          onTap: () {
-                            Navigator.pushNamed(
-                                context, SelectPersonPage.routeName);
-                          },
-                          child: Column(
-                            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                            children: [
-                              CircleAvatar(
-                                backgroundColor:
-                                    Color.fromARGB(255, 226, 186, 159),
-                                radius: 35,
-                                child: Icon(
-                                  Icons.accessibility_new_outlined,
-                                  size: 50,
-                                  color: Color.fromARGB(255, 124, 86, 64),
-                                ),
-                              ),
-                              Text(
-                                'Manicura',
-                                style: GoogleFonts.poppins(),
-                              ),
-                            ],
+                        ClipRRect(
+                          borderRadius: BorderRadius.circular(8.0),
+                          child: Image(
+                            image: AssetImage('assets/images/pic2.jpg'),
                           ),
                         ),
                         SizedBox(
-                          width: 20,
+                          height: 7,
                         ),
-                        GestureDetector(
-                          behavior: HitTestBehavior.translucent,
-                          onTap: () {
-                            Navigator.pushNamed(
-                                context, SelectPersonPage.routeName);
-                          },
+                        Container(
+                          margin: const EdgeInsets.symmetric(horizontal: 10),
                           child: Column(
-                            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                             children: [
-                              CircleAvatar(
-                                backgroundColor:
-                                    Color.fromARGB(255, 226, 186, 159),
-                                radius: 35,
-                                child: Icon(
-                                  Icons.accessibility_new_outlined,
-                                  size: 50,
-                                  color: Color.fromARGB(255, 124, 86, 64),
-                                ),
+                              MainText(
+                                'Lady Villa',
+                                size: 15,
+                                textAlign: TextAlign.start,
                               ),
-                              Text(
-                                'Pedicura',
-                                style: GoogleFonts.poppins(),
-                              ),
+                              Row(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: [
+                                  MainText(
+                                    '4.7',
+                                    size: 12,
+                                    textAlign: TextAlign.start,
+                                  ),
+                                  Icon(
+                                    Icons.star,
+                                    size: 20,
+                                    color: Color.fromARGB(255, 115, 63, 40),
+                                  )
+                                ],
+                              )
                             ],
                           ),
-                        ),
-                        SizedBox(
-                          width: 20,
-                        ),
-                        GestureDetector(
-                          behavior: HitTestBehavior.translucent,
-                          onTap: () {
-                            Navigator.pushNamed(
-                                context, SelectPersonPage.routeName);
-                          },
-                          child: Column(
-                            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                            children: [
-                              CircleAvatar(
-                                backgroundColor:
-                                    Color.fromARGB(255, 226, 186, 159),
-                                radius: 35,
-                                child: Icon(
-                                  Icons.accessibility_new_outlined,
-                                  size: 50,
-                                  color: Color.fromARGB(255, 124, 86, 64),
-                                ),
-                              ),
-                              Text(
-                                'Peinados',
-                                style: GoogleFonts.poppins(),
-                              ),
-                            ],
-                          ),
-                        ),
+                        )
                       ],
                     ),
-                  )
-                ],
+                  ),
+                  scrollDirection: Axis.horizontal,
+                ),
               ),
-            )
+            ),
           ],
         ),
+      ),
+      bottomNavigationBar: BottomNavigationBar(
+        showSelectedLabels: false,
+        showUnselectedLabels: false,
+        unselectedItemColor: Color.fromARGB(150, 115, 63, 40),
+        selectedItemColor: Color.fromARGB(255, 115, 63, 40),
+        items: [
+          BottomNavigationBarItem(
+            icon: Icon(
+              Icons.home,
+              size: 25,
+            ),
+            label: 'Inicio',
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(
+              Icons.calendar_today_outlined,
+              size: 25,
+            ),
+            label: 'Citas',
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(
+              Icons.person,
+              size: 25,
+            ),
+            label: 'Perfil',
+          )
+        ],
       ),
     );
   }

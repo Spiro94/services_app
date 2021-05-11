@@ -97,14 +97,13 @@ class _SelectPersonPageState extends State<SelectPersonPage> {
             selectedDay: selectedDay,
             onDayChanged: onDayChanded,
           ),
-          buildPersonsList(),
+          buildSpecialistsList(),
           buildAvailableTime(),
           Container(
             margin: const EdgeInsets.only(top: 20),
             padding: const EdgeInsets.symmetric(horizontal: 70),
             child: TextButton(
               style: TextButton.styleFrom(
-                  // padding: const EdgeInsets.symmetric(horizontal: 70),
                   backgroundColor: Color.fromARGB(255, 134, 93, 71),
                   shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(30),
@@ -213,7 +212,7 @@ class _SelectPersonPageState extends State<SelectPersonPage> {
     );
   }
 
-  Container buildPersonsList() {
+  Container buildSpecialistsList() {
     return Container(
       padding: const EdgeInsets.symmetric(horizontal: 30, vertical: 10),
       child: Column(
@@ -239,7 +238,7 @@ class _SelectPersonPageState extends State<SelectPersonPage> {
           ),
           Container(
             margin: const EdgeInsets.symmetric(vertical: 20),
-            height: size.height / 4,
+            height: size.height / 5,
             child: NotificationListener<OverscrollIndicatorNotification>(
               onNotification: (overscroll) {
                 overscroll.disallowGlow();
@@ -250,7 +249,7 @@ class _SelectPersonPageState extends State<SelectPersonPage> {
                 itemBuilder: (context, i) {
                   return Container(
                     margin: const EdgeInsets.symmetric(horizontal: 10),
-                    width: size.height / 5,
+                    width: size.height / 6,
                     decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(10),
                       border: Border.all(
@@ -261,7 +260,7 @@ class _SelectPersonPageState extends State<SelectPersonPage> {
                       children: [
                         CircleAvatar(
                           backgroundColor: Color.fromARGB(255, 206, 166, 133),
-                          radius: 50,
+                          radius: 40,
                           backgroundImage: AssetImage('assets/images/pic.jpg'),
                         ),
                         Text(
