@@ -1,8 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:services_app/features/service_request/presentation/screens/select_category_page/select_category_page.dart';
-import 'package:services_app/features/service_request/presentation/screens/select_person_page/select_person_page.dart';
+import '../select_category_page/select_category_page.dart';
 
 class LoginPage extends StatelessWidget {
   static String routeName = '/login_Page';
